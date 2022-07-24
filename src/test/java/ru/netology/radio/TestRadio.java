@@ -8,6 +8,13 @@ public class TestRadio {
     Radio radio = new Radio();
 
     @Test
+    void SetMaxNumberStationDefault(){
+        int actual = radio.getMaxNumberStation();
+        int expected = 9;
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void NotSetStationMoreNine() {
         radio.setNumberStation(11);
         int actual = radio.getCurrentStation();
@@ -25,10 +32,11 @@ public class TestRadio {
 
     @Test
     void SetStationNext() {
-        radio.setNumberStation(3);
+        Radio radio = new Radio(25);
+        radio.setNumberStation(20);
         radio.setNextStation();
         int actual = radio.getCurrentStation();
-        int expected = 4;
+        int expected = 21;
         assertEquals(expected, actual);
     }
 
@@ -46,13 +54,13 @@ public class TestRadio {
         radio.setNumberStation(0);
         radio.setPrevStation();
         int actual = radio.getCurrentStation();
-        int expected = 9;
+        int expected = radio.getMaxNumberStation();
         assertEquals(expected, actual);
     }
 
     @Test
     void SetStationNextNine() {
-        radio.setNumberStation(9);
+        radio.setNumberStation(radio.getMaxNumberStation());
         radio.setNextStation();
         int actual = radio.getCurrentStation();
         int expected = 0;
@@ -79,10 +87,10 @@ public class TestRadio {
 
     @Test
     void SetVolumeNoMore() {
-        radio.setCurrentVolume(10);
+        radio.setCurrentVolume(100);
         radio.increaseVolume();
         int actual = radio.getCurrentVolume();
-        int expected = 10;
+        int expected = 100;
         assertEquals(expected, actual);
     }
 
